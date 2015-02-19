@@ -3,6 +3,17 @@ Quick start
 
 This is an explanation of how getting it set up pretty quick without customization. If you want you can customize everything, take a look at the code and documentation for details.
 
+In app/Config/boostrap.php
+--------------------------
+
+```php
+CakePlugin::load('Cart', array(
+	'bootstrap' => true,
+));
+```
+
+You can as well copy the code from that file into your own bootstrap.php and replace the event listener that is used there with your own. The event listener will give you a lot of flexibility in changing the cart as you like.
+
 In your AppController
 ---------------------
 
