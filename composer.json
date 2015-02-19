@@ -1,5 +1,5 @@
 {
-	"name": "burzum/Cart",
+	"name": "burzum/cakephp-cart-plugin",
 	"type": "cakephp-plugin",
 	"description": "Shopping Cart Plugin for CakePHP that will work with any table and make it's records buyable.",
 	"keywords": ["cart", "e-commerce", "shopping"],
