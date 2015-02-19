@@ -15,3 +15,11 @@ If you use another user model class in your application other than User you'll n
 ```php
 Configure::write('Cart.models.User', 'AppUser');
 ```
+
+Don't forget to load the plugin with boostrap true.
+
+```php
+CakePlugin::load('Cart', array(
+    'bootstrap' => true,
+));
+```
