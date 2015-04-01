@@ -5,10 +5,6 @@ A CakePHP shopping cart plugin.
 
 The cart plugin is a stand alone cart only plugin, no payment processors are included you'll have to write them or get them from somewhere else.
 
-The shopping cart part of this plugin is finished but needs to be polished. There callbacks for many things in place that give you customization possibilities.
-
-**This is in development** backward compatibility breaking changes are expected!
-
 Requirements
 ------------
 
