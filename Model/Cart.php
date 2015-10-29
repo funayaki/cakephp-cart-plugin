@@ -291,8 +291,7 @@ class Cart extends CartAppModel {
 
 		if (isset($data[$this->alias][$this->primaryKey])) {
 			$this->save($data, array(
-				'validate' => false,
-				'callbacks' => false,
+				'validate' => false
 			));
 		}
 
@@ -434,6 +433,22 @@ class Cart extends CartAppModel {
 			$result = $this->_unserializeFields(array('additional_data'), $result);
 		}
 		return $results;
+	}
+
+/**
+ * beforeSave callback
+ *
+ * @param  array $options, not used
+ * @return boolean
+ */
+	public function beforeSave($options = array()) {
+		$this->data = $this->_serializeFields(
+			array(
+				'additional_data',
+			),
+			$this->data
+		);
+		return true;
 	}
 
 }
