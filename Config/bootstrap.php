@@ -1,5 +1,9 @@
 <?php
 
+use Cake\Core\Configure;
+use Cake\Event\EventManager;
+use Cart\Event\DefaultCartEventListener;
+
 EventManager::instance()->attach(new DefaultCartEventListener());
 
 Configure::write('Cart', array(
