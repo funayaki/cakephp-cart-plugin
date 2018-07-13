@@ -1,5 +1,4 @@
 <?php
-App::uses('AppModel', 'Model');
 /**
  * Cart App Model
  *
@@ -43,8 +42,7 @@ class CartAppModel extends AppModel {
  * the cart plugin without touching it's model code.
  *
  * You could for example extend the Order model with AppOrder and then configure
- * the plugin to use that model by Configure::write('Cart.models.Order', 'AppOrder');
- *
+ * the plugin to *
  * @return void
  */
 	protected function _configureAssociations() {

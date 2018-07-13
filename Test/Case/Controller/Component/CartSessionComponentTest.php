@@ -1,7 +1,4 @@
 <?php
-App::uses('Controller', 'Controller');
-App::uses('CartSessionComponent', 'Cart.Controller/Component');
-App::uses('CakeSession', 'Model/Datasource');
 
 class CartSessionTestController extends Controller {
 /**
@@ -22,17 +19,17 @@ class CartSessionTestController extends Controller {
 
 }
 
-class CartSessionComponentTest extends CakeTestCase {
+class CartSessionComponentTest extends TestCase {
 /**
  * Fixtures
  *
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.Cart',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.CartsItem',
+		'plugin.Cart.Carts',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.CartsItems'
 	);
 
 /**
@@ -42,7 +39,7 @@ class CartSessionComponentTest extends CakeTestCase {
  */
 	public function setUp() {
 		$_SESSION = null;
-		$this->ComponentCollection = new ComponentCollection();
+		$this->ComponentRegistry = new ComponentRegistry();
 	}
 
 /**
@@ -52,7 +49,7 @@ class CartSessionComponentTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakeSession::destroy();
+		Session::destroy();
 	}
 
 /**
@@ -61,7 +58,7 @@ class CartSessionComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testWrite() {
-		$Cart = new CartSessionComponent($this->ComponentCollection);
+		$Cart = new CartSessionComponent($this->ComponentRegistry);
 		$Cart->addItem(array(
 			'amount' => 10,
 			'model' => 'Item',

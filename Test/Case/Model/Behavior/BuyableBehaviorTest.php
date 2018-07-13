@@ -1,6 +1,4 @@
 <?php
-App::uses('BuyableBehavior', 'Cart.Model/Behavior');
-App::uses('Model', 'Model');
 /**
  * CartTestItemModel
  */
@@ -26,17 +24,18 @@ class CartTestItemModel extends Model {
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class BuyableBehaviorTest extends CakeTestCase {
+class BuyableBehaviorTest extends TestCase {
 /**
  * Fixtures
  *
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.Cart',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.CartsItem');
+		'plugin.Cart.Carts',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.CartsItems'
+	);
 
 /**
  * startUp

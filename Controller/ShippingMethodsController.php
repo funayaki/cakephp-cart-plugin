@@ -1,5 +1,4 @@
 <?php
-App::uses('CartAppController', 'Cart.Controller');
 /**
  * ShippingMethodsController
  *
@@ -17,8 +16,8 @@ class ShippingMethodsController extends CartAppController {
  *
  * @return void
  */
-	public function beforeFilter() {
-		parent::beforeFilter();
+	public function beforeFilter(Event $event) {
+		parent::beforeFilter($event);
 
 		if (Configure::read('Cart.anonymousCheckout') === true) {
 			$this->Auth->allow('*');

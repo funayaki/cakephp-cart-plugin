@@ -1,8 +1,4 @@
 <?php
-App::uses('PaymentProcessors', 'Payments.Lib/Payment');
-App::uses('CartAppController', 'Cart.Controller');
-App::uses('CakeEventManager', 'Event');
-App::uses('CakeEvent', 'Event');
 
 /**
  * Checkout Controller
@@ -40,8 +36,8 @@ class CheckoutController extends CartAppController {
  *
  * @return void
  */
-	public function beforeFilter() {
-		parent::beforeFilter();
+	public function beforeFilter(Event $event) {
+		parent::beforeFilter($event);
 		$this->Auth->allow('callback', 'checkout', 'index', 'confirm', 'finish');
 	}
 
@@ -67,7 +63,7 @@ class CheckoutController extends CartAppController {
 				'Order.token' => $token)));
 
 		if (empty($order)) {
-			throw new NotFoundException(__d('cart', 'Invalid payment token %s!', $token));
+			throw new NotFoundException(__d('cart', 'Invalid payment token {0}!', $token));
 		}
 
 		try {
@@ -95,8 +91,8 @@ class CheckoutController extends CartAppController {
 			$this->log($this->request, 'payment-error');
 		}
 
-		$Event = new CakeEvent('Payment.callback', $this->request);
-		CakeEventManager::dispatch($Event, $this, array($result));
+		$Event = new Event('Payment.callback', $this->request);
+		EventManager::dispatch($Event, $this, array($result));
 
 		$this->_stop();
 	}
@@ -177,7 +173,7 @@ class CheckoutController extends CartAppController {
  * @return void
  */
 	public function confirm($transactionToken = null) {
-		if ($transactionToken != CakeSession::read('Payment.token')) {
+		if ($transactionToken != Session::read('Payment.token')) {
 			$this->Session->setFlash(__d('cart', 'Invalid Order'));
 			$this->redirect('/');
 		}
@@ -185,7 +181,7 @@ class CheckoutController extends CartAppController {
 		$order = $this->Order->find('first', array(
 			'contain' => array(),
 			'conditions' => array(
-				'Order.id' => CakeSession::read('Payment.orderId'))));
+				'Order.id' => Session::read('Payment.orderId'))));
 
 		$Processor = $this->_loadPaymentProcessor($order['Order']['processor']);
 
@@ -244,8 +240,8 @@ class CheckoutController extends CartAppController {
 			}
 
 			$Processor = PaymentProcessors::load($processor, $config, array(
-				'CakeRequest' => $this->request,
-				'CakeResponse' => $this->response));
+				'Request' => $this->request,
+				'Response' => $this->response));
 			$Processor->sandboxMode($sandboxMode);
 
 			return $Processor;

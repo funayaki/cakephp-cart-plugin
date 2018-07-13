@@ -1,5 +1,4 @@
 <?php
-App::uses('CartAppModel', 'Cart.Model');
 
 /**
  * Order Address Model

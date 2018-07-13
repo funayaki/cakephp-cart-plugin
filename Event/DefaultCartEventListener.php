@@ -1,7 +1,6 @@
 <?php
-App::uses('CakeEventListener', 'Event');
 
-class DefaultCartEventListener implements CakeEventListener {
+class DefaultCartEventListener implements EventListener {
 
 	public function implementedEvents() {
 		return array(
@@ -9,7 +8,7 @@ class DefaultCartEventListener implements CakeEventListener {
 		);
 	}
 
-	public function calculateTotals(CakeEvent $Event) {
+	public function calculateTotals(Event $Event) {
 		$Model = $Event->subject();
 		$cartData = $Event->data['cartData'];
 

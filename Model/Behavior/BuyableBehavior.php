@@ -1,6 +1,4 @@
 <?php
-App::uses('AppBehavior', 'Model');
-App::uses('CakeEventManager', 'Event');
 /**
  * Buyable Behavior
  *
@@ -144,7 +142,7 @@ class BuyableBehavior extends ModelBehavior {
 
 		if (is_string($maxQuantity)) {
 			if (!isset($record[$Model->alias][$maxQuantity])) {
-				throw new RuntimeException(__d('cart', 'Invalid model field %s for maxQuantity!', $maxQuantity));
+				throw new RuntimeException(__d('cart', 'Invalid model field {0} for maxQuantity!', $maxQuantity));
 			}
 			$maxQuantity = $record[$Model->alias][$maxQuantity];
 		}

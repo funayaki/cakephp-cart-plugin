@@ -1,5 +1,4 @@
 <?php
-App::uses('CartsItem', 'Cart.Model');
 /**
  * CartsItem Test
  * 
@@ -7,18 +6,18 @@ App::uses('CartsItem', 'Cart.Model');
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class CartsItemTest extends CakeTestCase {
+class CartsItemTest extends TestCase {
 /**
  * Fixtures
  *
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.User',
-		'plugin.Cart.Cart',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.CartsItem',
+		'plugin.Cart.Users',
+		'plugin.Cart.Carts',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.CartsItems'
 	);
 
 /**

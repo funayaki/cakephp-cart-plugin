@@ -1,7 +1,4 @@
 <?php
-App::uses('Controller', 'Controller');
-App::uses('CartManagerComponent', 'Cart.Controller/Component');
-App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * CartTestItemsController
@@ -19,7 +16,7 @@ class CartTestItemsController extends Controller {
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class CartManagerComponentTest extends CakeTestCase {
+class CartManagerComponentTest extends TestCase {
 
 /**
  * Fixtures
@@ -27,10 +24,10 @@ class CartManagerComponentTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.Cart',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.CartsItem',
+		'plugin.Cart.Carts',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.CartsItems'
 	);
 
 /**
@@ -39,9 +36,9 @@ class CartManagerComponentTest extends CakeTestCase {
  * @return void
  */
 	public function setUp() {
-		$this->Controller = new CartTestItemsController($this->getMock('CakeRequest'), $this->getMock('CakeResponse'));
+		$this->Controller = new CartTestItemsController($this->getMock('Request'), $this->getMock('Response'));
 
-		$this->collection = new ComponentCollection();
+		$this->collection = new ComponentRegistry();
 		$this->collection->init($this->Controller);
 
 		$AuthMock = $this->getMock('AuthComponent', array(), array($this->collection));
@@ -83,7 +80,7 @@ class CartManagerComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testStartup() {
-		$this->collection = new ComponentCollection();
+		$this->collection = new ComponentRegistry();
 		$this->collection->init($this->Controller);
 
 		$this->CartManager = $this->getMock('CartManagerComponent', array('captureBuy'), array($this->collection));

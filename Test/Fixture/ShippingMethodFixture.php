@@ -5,7 +5,7 @@
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class ShippingMethodFixture extends CakeTestFixture {
+class ShippingMethodFixture extends TestFixture {
 /**
  * Name
  *

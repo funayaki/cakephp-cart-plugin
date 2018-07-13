@@ -1,8 +1,6 @@
 <?php
-App::uses('CakeEventManager', 'Event');
-App::uses('DefaultCartEventListener', 'Cart.Event');
 
-CakeEventManager::instance()->attach(new DefaultCartEventListener());
+EventManager::instance()->attach(new DefaultCartEventListener());
 
 Configure::write('Cart', array(
 	'checkoutAction' => array(

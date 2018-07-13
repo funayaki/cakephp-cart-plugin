@@ -1,12 +1,10 @@
 <?php
-App::uses('CakeSession', 'Model/Datasource');
-App::uses('CartAppModel', 'Cart.Model');
 
 /**
  * Payment Api Transaction Model
  *
  * This model is used to log all payment API transactions it can be called 
- * directly or used with a CakeLog engine that can load models. For the ease of
+ * directly or used with a Log engine that can load models. For the ease of
  * use there is a logger in the cart plugin: PaymentApiLogger.
  *
  * You want that data very likely for
@@ -45,15 +43,15 @@ class PaymentApiTransaction extends CartAppModel {
  * @return string
  */
 	public function initialize($processorClass, $orderId) {
-		$token = str_replace('-', '', String::uuid());
-		CakeSession::write('Payment', array(
+		$token = str_replace('-', '', Text::uuid());
+		Session::write('Payment', array(
 			'orderId' => $orderId,
 			'token' => $token,
 			'processor' => $processorClass
 		));
 
-		CakeSession::write('Payment.token', $token);
-		CakeSession::write('Payment.processor', $processorClass);
+		Session::write('Payment.token', $token);
+		Session::write('Payment.processor', $processorClass);
 
 		$this->write('payment', __d('cart', 'Payment process started'));
 
@@ -67,7 +65,7 @@ class PaymentApiTransaction extends CartAppModel {
  */
 	public function finish() {
 		$this->write('payment', __d('cart', 'Payment process finished'));
-		CakeSession::delete('Payment');
+		Session::delete('Payment');
 	}
 
 /**
@@ -78,9 +76,9 @@ class PaymentApiTransaction extends CartAppModel {
  * @return mixed Array on success else false
  */
 	public function write($type, $message) {
-		$processorName = CakeSession::read('Payment.processor');
-		$token = CakeSession::read('Payment.token');
-		$orderId = CakeSession::read('Payment.orderId');
+		$processorName = Session::read('Payment.processor');
+		$token = Session::read('Payment.token');
+		$orderId = Session::read('Payment.orderId');
 
 		if (empty($token) || empty($processorName) || empty($orderId)) {
 			return false;

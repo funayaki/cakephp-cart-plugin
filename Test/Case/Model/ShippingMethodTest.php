@@ -1,7 +1,6 @@
 <?php
-App::uses('ShippingMethod', 'Cart.Model');
 
-class ShippingMethodTestCase extends CakeTestCase {
+class ShippingMethodTestCase extends TestCase {
 
 /**
  * Fixtures
@@ -9,14 +8,14 @@ class ShippingMethodTestCase extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.Cart',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.OrderItem',
-		'plugin.Cart.CartsItem',
-		'plugin.Cart.OrderAddress',
-		'plugin.Cart.User',
-		'plugin.Cart.ShippingMethod'
+		'plugin.Cart.Carts',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.OrderItems',
+		'plugin.Cart.CartsItems',
+		'plugin.Cart.OrderAddresses',
+		'plugin.Cart.Users',
+		'plugin.Cart.ShippingMethods'
 	);
 
 /**

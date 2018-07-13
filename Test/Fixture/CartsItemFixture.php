@@ -3,7 +3,7 @@
  * CartsItemFixture
  *
  */
-class CartsItemFixture extends CakeTestFixture {
+class CartsItemFixture extends TestFixture {
 
 /**
  * Name

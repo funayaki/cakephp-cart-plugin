@@ -1,7 +1,4 @@
 <?php
-App::uses('Component', 'Controller');
-App::uses('CartSessionComponent', 'Cart.Controller/Component');
-App::uses('CakeEvent', 'Event');
 
 /**
  * CartManagerComponent
@@ -50,7 +47,7 @@ class CartManagerComponent extends Component {
 	protected $_isLoggedIn = false;
 
 /**
- * CakeEventManager
+ * EventManager
  */
 	protected $_EventManager = null;
 
@@ -110,7 +107,7 @@ class CartManagerComponent extends Component {
 	public function initialize(Controller $Controller) {
 		$this->settings = array_merge($this->_defaultSettings, $this->settings);
 		$this->Controller = $Controller;
-		$this->_EventManager = CakeEventManager::instance();
+		$this->_EventManager = EventManager::instance();
 
 		if (empty($this->settings['model'])) {
 			$this->settings['model'] = $this->Controller->modelClass;
@@ -207,7 +204,7 @@ class CartManagerComponent extends Component {
 
 		$type = $this->getItemAction($data);
 		if (!$this->itemActionAllowed($type)) {
-			throw new InternalErrorException(__d('cart', 'Type %s is not allowed', $type));
+			throw new InternalErrorException(__d('cart', 'Type {0} is not allowed', $type));
 		}
 
 		if (!$data) {
@@ -358,7 +355,7 @@ class CartManagerComponent extends Component {
 		if ($item === true) {
 			$this->Session->setFlash(__d('cart', 'Item was successfully removed from your cart'));
 		} else {
-			$this->Session->setFlash(__d('cart', 'You now have %s %s in your cart', $item['quantity'], $item['name']));
+			$this->Session->setFlash(__d('cart', 'You now have {0} {1} in your cart', $item['quantity'], $item['name']));
 		}
 		if (is_string($afterAddItemRedirect) || is_array($afterAddItemRedirect)) {
 			$this->Controller->redirect($afterAddItemRedirect);
@@ -424,7 +421,7 @@ class CartManagerComponent extends Component {
 			return $this->removeItem($data);
 		}
 
-		$Event = new CakeEvent('CartManager.beforeAddItem', $this, array($data));
+		$Event = new Event('CartManager.beforeAddItem', $this, array($data));
 		$this->_EventManager->dispatch($Event);
 		if ($Event->result === false || $Event->isStopped()) {
 			return false;
@@ -433,7 +430,7 @@ class CartManagerComponent extends Component {
 		$ItemModel = ClassRegistry::init($data['CartsItem']['model']);
 
 		if (!$ItemModel->hasMethod('isBuyable') || !$ItemModel->hasMethod('beforeAddToCart')) {
-			throw new InternalErrorException(__d('cart', 'The model %s is not implementing isBuyable() or beforeAddToCart() or is not using the BuyableBehavior!', get_class($ItemModel)));
+			throw new InternalErrorException(__d('cart', 'The model {0} is not implementing isBuyable() or beforeAddToCart() or is not using the BuyableBehavior!', get_class($ItemModel)));
 		}
 
 		if (!$ItemModel->isBuyable($data)) {
@@ -466,7 +463,7 @@ class CartManagerComponent extends Component {
 			$this->calculateCart();
 		}
 
-		$Event = new CakeEvent('CartManager.afterAddItem', $this, array($result));
+		$Event = new Event('CartManager.afterAddItem', $this, array($result));
 		$this->_EventManager->dispatch($Event);
 		return $result;
 	}
@@ -480,7 +477,7 @@ class CartManagerComponent extends Component {
 	public function removeItem($data = null) {
 		extract($this->settings);
 
-		$Event = new CakeEvent('CartManager.beforeRemoveItem', $this, array($data));
+		$Event = new Event('CartManager.beforeRemoveItem', $this, array($data));
 		$this->_EventManager->dispatch($Event);
 		if ($Event->isStopped()) {
 			return false;
@@ -495,7 +492,7 @@ class CartManagerComponent extends Component {
 		$result = $this->CartSession->removeItem($data['CartsItem']);
 		$this->calculateCart();
 
-		$Event = new CakeEvent('CartManager.afterRemoveItem', $this, array($result));
+		$Event = new Event('CartManager.afterRemoveItem', $this, array($result));
 		$this->_EventManager->dispatch($Event);
 
 		return $result;

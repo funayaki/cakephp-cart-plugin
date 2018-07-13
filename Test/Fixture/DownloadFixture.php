@@ -3,7 +3,7 @@
  * DownloadFixture
  *
  */
-class DownloadFixture extends CakeTestFixture {
+class DownloadFixture extends TestFixture {
 
 /**
  * Name

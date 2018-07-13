@@ -1,5 +1,4 @@
 <?php
-App::uses('CartAppController', 'Cart.Controller');
 /**
  * Payment Methods Controller
  *
@@ -20,8 +19,8 @@ class PaymentMethodsController extends CartAppController {
  *
  * @return void
  */
-	public function beforeFilter() {
-		parent::beforeFilter();
+	public function beforeFilter(Event $event) {
+		parent::beforeFilter($event);
 		if (Configure::read('Cart.allowAnonymousCheckout') == true) {
 			$this->Auth->allow('*');
 		}

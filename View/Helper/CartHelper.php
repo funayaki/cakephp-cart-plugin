@@ -1,5 +1,4 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
 /**
  * CartHelper
  *
@@ -34,7 +33,7 @@ class CartHelper extends AppHelper {
  * Construct method
  * @param  View $View the view object the helper is attached to.
  * @param  array $settings Array of settings.
- * @throws CakeException When the AjaxProvider helper does not implement a link method.
+ * @throws \Exception When the AjaxProvider helper does not implement a link method.
  */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);

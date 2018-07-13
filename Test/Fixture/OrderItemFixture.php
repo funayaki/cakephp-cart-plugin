@@ -6,7 +6,7 @@
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class OrderItemFixture extends CakeTestFixture {
+class OrderItemFixture extends TestFixture {
 /**
  * Name
  *

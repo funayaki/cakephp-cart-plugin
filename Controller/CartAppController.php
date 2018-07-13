@@ -1,5 +1,4 @@
 <?php
-App::uses('AppController', 'Controller');
 /**
  * Cart App Controller
  *

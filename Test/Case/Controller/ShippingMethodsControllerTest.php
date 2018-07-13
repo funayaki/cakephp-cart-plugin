@@ -1,9 +1,8 @@
 <?php
-App::uses('ShippingMethodsController', 'Cart.Controller');
 /*
  * @property ShippingMethodsController ShippingMethods
  */
-class ShippingMethodsControllerTestCase extends CakeTestCase {
+class ShippingMethodsControllerTestCase extends TestCase {
 /**
  * Autoload entrypoint for fixtures dependecy solver
  *

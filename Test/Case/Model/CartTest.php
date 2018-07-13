@@ -1,6 +1,4 @@
 <?php
-App::uses('Cart', 'Cart.Model');
-App::uses('DefaultCartEventListener', 'Cart.Event');
 
 /**
  * Cart Test
@@ -12,7 +10,7 @@ App::uses('DefaultCartEventListener', 'Cart.Event');
  *
  * @property Cart Cart
  */
-class CartTest extends CakeTestCase {
+class CartTest extends TestCase {
 
 /**
  * Fixtures
@@ -20,11 +18,11 @@ class CartTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.Cart',
-		'plugin.Cart.CartsItem',
-		'plugin.Cart.Item',
-		'plugin.Cart.Order',
-		'plugin.Cart.User',
+		'plugin.Cart.Carts',
+		'plugin.Cart.CartsItems',
+		'plugin.Cart.Items',
+		'plugin.Cart.Orders',
+		'plugin.Cart.Users'
 	);
 
 /**
@@ -35,7 +33,7 @@ class CartTest extends CakeTestCase {
 	public function setUp() {
 		$this->Cart = ClassRegistry::init('Cart.Cart');
 		$this->_detachAllListeners();
-		CakeEventManager::instance()->attach(new DefaultCartEventListener());
+		EventManager::instance()->attach(new DefaultCartEventListener());
 	}
 
 /**
@@ -44,7 +42,7 @@ class CartTest extends CakeTestCase {
  * @return void
  */
 	protected function _detachAllListeners() {
-		$EventManager = CakeEventManager::instance();
+		$EventManager = EventManager::instance();
 		$events = array(
 			'Cart.beforeCalculateCart',
 			'Cart.applyTaxRules',

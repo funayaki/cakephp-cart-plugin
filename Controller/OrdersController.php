@@ -1,5 +1,4 @@
 <?php
-App::uses('CartAppController', 'Cart.Controller');
 /**
  * Orders Controller
  *
@@ -34,8 +33,8 @@ class OrdersController extends CartAppController {
  *
  * @return void
  */
-	public function beforeFilter() {
-		parent::beforeFilter();
+	public function beforeFilter(Event $event) {
+		parent::beforeFilter($event);
 		$this->Auth->allow('checkout');
 	}
 

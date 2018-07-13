@@ -6,7 +6,7 @@
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class CartFixture extends CakeTestFixture {
+class CartFixture extends TestFixture {
 
 /**
  * Name

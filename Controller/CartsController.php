@@ -1,7 +1,4 @@
 <?php
-App::uses('CartAppController', 'Cart.Controller');
-App::uses('CakeEventManager', 'Event');
-App::uses('CakeEvent', 'Event');
 
 /**
  * Carts Controller
@@ -26,8 +23,8 @@ class CartsController extends CartAppController {
  *
  * @return void
  */
-	public function beforeFilter() {
-		parent::beforeFilter();
+	public function beforeFilter(Event $event) {
+		parent::beforeFilter($event);
 		$this->Auth->allow('index', 'view', 'remove_item', 'checkout', 'callback', 'finish_order');
 
 		if ($this->request->params['action'] == 'callback') {

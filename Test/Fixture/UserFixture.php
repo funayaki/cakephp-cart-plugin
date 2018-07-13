@@ -1,5 +1,4 @@
 <?php
-App::uses('Security', 'Utility');
 /**
  * User Fixture
  *
@@ -7,7 +6,7 @@ App::uses('Security', 'Utility');
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class UserFixture extends CakeTestFixture {
+class UserFixture extends TestFixture {
 
 /**
  * Name

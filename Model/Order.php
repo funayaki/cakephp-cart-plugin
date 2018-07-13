@@ -1,6 +1,4 @@
 <?php
-App::uses('CartAppModel', 'Cart.Model');
-App::uses('AddressType', 'Cart.Model');
 
 /**
  * Order Model
@@ -178,7 +176,7 @@ class Order extends CartAppModel {
 			}
 
 			if (!empty($changedFields)) {
-				$this->getEventManager()->dispatch(new CakeEvent('Order.changed', $this, array(
+				$this->getEventManager()->dispatch(new Event('Order.changed', $this, array(
 					$this->data,
 					$this->orderRecordBeforeSave,
 					$changedFields
@@ -210,7 +208,7 @@ class Order extends CartAppModel {
 			));
 
 			$this->data = $result;
-			$this->getEventManager()->dispatch(new CakeEvent('Order.created', $this, array($this->data)));
+			$this->getEventManager()->dispatch(new Event('Order.created', $this, array($this->data)));
 		}
 
 		$this->_detectOrderChange();
@@ -334,7 +332,7 @@ class Order extends CartAppModel {
 	public function createOrder($data, $options = array()) {
 		$data = $this->beforeCreateOrder($data);
 
-		$Event = new CakeEvent(
+		$Event = new Event(
 			'Order.beforeCreateOrder',
 			$this,
 			array(
@@ -370,7 +368,7 @@ class Order extends CartAppModel {
 
 			$DataSource->commit();
 
-			$Event = new CakeEvent(
+			$Event = new Event(
 				'Order.created',
 				$this, array(
 					'order' => $data
@@ -392,7 +390,7 @@ class Order extends CartAppModel {
  * @return string
  */
 	public function invoiceNumber($data = array(), $date = null) {
-		$Event = new CakeEvent(
+		$Event = new Event(
 			'Order.createInvoiceNumber',
 			$this,
 			array(

@@ -1,5 +1,4 @@
 <?php
-App::uses('Component', 'Controller');
 /**
  * Cart Session Component
  *

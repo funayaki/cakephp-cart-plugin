@@ -1,7 +1,6 @@
 <?php
-App::uses('OrderAddress', 'Cart.Model');
 
-class OrderAddressTestCase extends CakeTestCase {
+class OrderAddressTestCase extends TestCase {
 
 /**
  * Fixtures
@@ -9,7 +8,7 @@ class OrderAddressTestCase extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.Cart.OrderAddress',
+		'plugin.Cart.OrderAddresses'
 	);
 
 /**
