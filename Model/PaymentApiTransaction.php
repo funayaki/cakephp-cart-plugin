@@ -3,7 +3,7 @@
 /**
  * Payment Api Transaction Model
  *
- * This model is used to log all payment API transactions it can be called 
+ * This model is used to log all payment API transactions it can be called
  * directly or used with a Log engine that can load models. For the ease of
  * use there is a logger in the cart plugin: PaymentApiLogger.
  *
@@ -17,87 +17,91 @@
  * @license MIT
  * @link http://book.cakephp.org/2.0/en/core-libraries/logging.html#creating-and-configuring-log-streams
  */
-class PaymentApiTransaction extends CartAppModel {
+class PaymentApiTransaction extends CartAppModel
+{
 
-/**
- * belongsTo associations
- *
- * @var array
- */
-	public $belongsTo = array(
-		'Order' => array(
-			'className' => 'Cart.Order'));
+    /**
+     * belongsTo associations
+     *
+     * @var array
+     */
+    public $belongsTo = array(
+        'Order' => array(
+            'className' => 'Cart.Order'));
 
-/**
- * Validation rules
- *
- * @var array
- */
-	public $validate = array();
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public $validate = array();
 
-/**
- * Initializes a new api transaction session
- *
- * @param string $processorClass 
- * @param string $orderId Order UUID
- * @return string
- */
-	public function initialize($processorClass, $orderId) {
-		$token = str_replace('-', '', Text::uuid());
-		Session::write('Payment', array(
-			'orderId' => $orderId,
-			'token' => $token,
-			'processor' => $processorClass
-		));
+    /**
+     * Initializes a new api transaction session
+     *
+     * @param string $processorClass
+     * @param string $orderId Order UUID
+     * @return string
+     */
+    public function initialize($processorClass, $orderId)
+    {
+        $token = str_replace('-', '', Text::uuid());
+        Session::write('Payment', array(
+            'orderId' => $orderId,
+            'token' => $token,
+            'processor' => $processorClass
+        ));
 
-		Session::write('Payment.token', $token);
-		Session::write('Payment.processor', $processorClass);
+        Session::write('Payment.token', $token);
+        Session::write('Payment.processor', $processorClass);
 
-		$this->write('payment', __d('cart', 'Payment process started'));
+        $this->write('payment', __d('cart', 'Payment process started'));
 
-		return $token;
-	}
+        return $token;
+    }
 
-/**
- * Finishes a payment transaction log ny deleting the session keys
- *
- * @return void
- */
-	public function finish() {
-		$this->write('payment', __d('cart', 'Payment process finished'));
-		Session::delete('Payment');
-	}
+    /**
+     * Finishes a payment transaction log ny deleting the session keys
+     *
+     * @return void
+     */
+    public function finish()
+    {
+        $this->write('payment', __d('cart', 'Payment process finished'));
+        Session::delete('Payment');
+    }
 
-/**
- * Writes to the log table
- *
- * @param string $type
- * @param mixed $message
- * @return mixed Array on success else false
- */
-	public function write($type, $message) {
-		$processorName = Session::read('Payment.processor');
-		$token = Session::read('Payment.token');
-		$orderId = Session::read('Payment.orderId');
+    /**
+     * Writes to the log table
+     *
+     * @param string $type
+     * @param mixed $message
+     * @return mixed Array on success else false
+     */
+    public function write($type, $message)
+    {
+        $processorName = Session::read('Payment.processor');
+        $token = Session::read('Payment.token');
+        $orderId = Session::read('Payment.orderId');
 
-		if (empty($token) || empty($processorName) || empty($orderId)) {
-			return false;
-		}
+        if (empty($token) || empty($processorName) || empty($orderId)) {
+            return false;
+        }
 
-		if (!is_string($message)) {
-			$message = print_r($expression);
-		}
+        if (!is_string($message)) {
+            $message = print_r($expression);
+        }
 
-		$this->create();
-		return $this->save(array(
-			$this->alias => array(
-				'processor' => $processorName,
-				'token' => $token,
-				'order_id' => $orderId,
-				'type' => $type,
-				'message' => $message
-			)
-		));
-	}
+        $this->create();
+        return $this->save(array(
+            $this->alias => array(
+                'processor' => $processorName,
+                'token' => $token,
+                'order_id' => $orderId,
+                'type' => $type,
+                'message' => $message
+            )
+        ));
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cart App Controller
  *
@@ -6,17 +7,18 @@
  * @copyright 2012 - 2014 Florian Krämer
  * @license MIT
  */
-class CartAppController extends AppController {
+class CartAppController extends AppController
+{
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array(
-		'Security',
-		'Session',
-		'Auth'
-	);
+    /**
+     * Components
+     *
+     * @var array
+     */
+    public $components = array(
+        'Security',
+        'Session',
+        'Auth'
+    );
 
 }
